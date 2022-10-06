@@ -1,4 +1,11 @@
 # Missed_Connections
+
+Goal:
+For every 10 new entries at https://docs.google.com/spreadsheets/d/1oVLtL27b7W3RwxUavTboa5oyxc7tiF0uvcIbBvdpR_0/edit#gid=0
+Generate images like the ones in previous posts at https://www.instagram.com/rutgers.missedconnections/?hl=en
+
+
+
 Ideally I want to be able to...
 1. At every update to the missed connections google sheet, have a script take the entry and generate an image.
 

@@ -26,5 +26,4 @@ def missed_connection():
     image.show()
     # img.save("missed_connection.jpg")
 
-#test change
 missed_connection()

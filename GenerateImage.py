@@ -1,4 +1,3 @@
-import imp
 from PIL import ImageFont, Image
 from pilmoji import Pilmoji
 import textwrap

@@ -2,6 +2,7 @@
 
 Goal:
 For every 10 new entries at https://docs.google.com/spreadsheets/d/1oVLtL27b7W3RwxUavTboa5oyxc7tiF0uvcIbBvdpR_0/edit#gid=0
+
 Generate images like the ones in previous posts at https://www.instagram.com/rutgers.missedconnections/?hl=en
 
 

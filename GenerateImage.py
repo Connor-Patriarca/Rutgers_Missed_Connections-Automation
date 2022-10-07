@@ -1,10 +1,10 @@
+import imp
 from PIL import ImageFont, Image
 from pilmoji import Pilmoji
 import textwrap
-
 from fontTools.ttLib import TTFont
 
-
+# Calculating Text Size
 STARTING_WIDTH =    100 #starting val for 'width' in textwrap()
 PIXEL_MAX =         280 #arbitrary value i found by trial/error
 LINE_HEIGHT =       63 #also ^
@@ -17,6 +17,7 @@ t = cmap.getcmap(3,1).cmap
 s = font.getGlyphSet()
 units_per_em = font['head'].unitsPerEm
 
+# Generate Image
 def getTextWidth(text,pointSize):
     total = 0
     for c in text:
@@ -40,6 +41,7 @@ def missed_connection():
     # userinput = "MMMMMMMMMMMMMMMMMMMMMMMMMMMMM MMMMMMMMMMMMMMMMMMMMMMM IIIIIIIIIIIIIIII IIIIIIIIIIIIIIII IIIIIIIIIIIIIIII " #3 lines
     # userinput = "MMMMMMMMMMMMMMMMMMMMMMMMMMMMM MMMMMMMMMMMMMMMMMMMMMMM IIIIIIIIIIIIIIII IIIIIIIIIIIIIIII IIIIIIIIIIIIIII IIIIIIIIII IIIIIIIIIIIIIIIII IIIIIIIIIIIIIIIIII MMMMMMMMMMM" #4 lines
     # userinput = "MMMMMMMMMMMMMMMMMMMMMMMMMMMMM MMMMMMMMMMMMMMMMMMMMMMM IIIIIIIIIIIIIIII IIIIIIIIIIIIIIII IIIIIIIIIIIIIII IIIIIIIIII IIIIIIIIIIIIIIIII IIIIIIIIIIIIIIIIII MMMMMMMMMMM MMMMMMMMMMMMMMMMMMMMMMMMMMMMM MMMMMMMMMMMMMMMMMMMMMMM IIIIIIIIIIIIIIII IIIIIIIIIIIIIIII IIIIIIIIIIIIIII IIIIIIIIII IIIIIIIIIIIIIIIII IIIIIIIIIIIIIIIIII MMMMMMMMMMM MMMMMMMMMMMMMMMMMMMMMMMMMMMMM MMMMMMMMMMMMMMMMMMMMMMM IIIIIIIIIIIIIIII IIIIIIIIIIIIIIII IIIIIIIIIIIIIII IIIIIIIIII IIIIIIIIIIIIIIIII IIIIIIIIIIIIIIIIII MMMMMMMMMMM" #12 lines
+    
     userinput = "hi everyone i’m nicolette alexandra (they/them) i’m a photographer 📸 and i have a literary/art review where I publish my work. i’m looking for a couple of models to shoot some themed concepts that i have. let me know if you’d be interested in being one my insta is @julietrosereview and @alexandranicolettte :)))☁️🪐"
     
     finalMsg = ""

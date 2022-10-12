@@ -1,4 +1,3 @@
-import imp
 import gspread
 from datetime import datetime
 
@@ -15,14 +14,21 @@ posttime = worksheet.get('B{}'.format(postrow)).first()
 # Translating Date
 posttime_datetime_object = datetime.strptime(posttime, '%m/%d/%Y %H:%M:%S')
 
-# Point where script chooses to continue or not
+# Script chooses to continue or not based on the time of the last generated post
 from PrevPostTime import lastposttime, placeholderposttime
-if posttime_datetime_object > lastposttime:
+
+lastposttime = datetime.strptime(lastposttime, '%m/%d/%Y %H:%M:%S')
+placeholderposttime = datetime.strptime(placeholderposttime, '%m/%d/%Y %H:%M:%S')
+
+print(lastposttime,placeholderposttime)
+
+while posttime_datetime_object > lastposttime:
     # Generate Image
     import GenerateImage
     posttime_datetime_object = placeholderposttime
-else:
-    lastposttime = placeholderposttime
+    postrow += 1
+    
+lastposttime = placeholderposttime
 
 # # Print Results
 # print(post,'\n',type(posttime_datetime_object),posttime_datetime_object)

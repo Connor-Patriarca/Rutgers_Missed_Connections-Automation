@@ -1,1 +1,4 @@
 pilmoji==2.0.2
+gspread==5.5.0
+Pillow==9.2.0
+fonttools==4.37.4

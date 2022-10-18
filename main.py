@@ -1,5 +1,6 @@
 import gspread
 from datetime import datetime
+from GenerateImage import generateImage
 
 # Prompt Script to start looking from when?
 dateprompt = input(str("\nWhat date/time should I start working from?\nFormat is 'mm/dd/yyyy hh:mm:ss' : "))
@@ -29,7 +30,7 @@ print(type(lastposttime),type(placeholderposttime))
 
 while currently_pulled_post_time > lastposttime:
     # Generate Image
-    import GenerateImage 
+    generateImage(post)
     posttime_datetime_object = placeholderposttime
     postrow += 1
     

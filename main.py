@@ -9,7 +9,7 @@ dateprompt = input(str("\nWhat date/time should I start working from?\nFormat is
 LastImageTime = datetime.strptime(dateprompt, '%m/%d/%Y %H:%M:%S')
 
 # Pull entries from Google Sheet
-gc = gspread.service_account('rutgers-missed-connections-b4bf6b9aa508.json')
+gc = gspread.service_account('service_account.json')
 sh = gc.open_by_url('https://docs.google.com/spreadsheets/d/1GAGsJhb3pH9WLwLs7Kj9F_h0x0lweRL30qURPBguGfw/edit?usp=sharing')
 worksheet = sh.sheet1
 

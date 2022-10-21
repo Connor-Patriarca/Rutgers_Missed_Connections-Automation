@@ -3,7 +3,7 @@ from pilmoji import Pilmoji
 import textwrap
 from fontTools.ttLib import TTFont
 
-def generateImage(userinput):
+def generateImage(userinput,date,title):
     # Calculating Text Size
     STARTING_WIDTH =    100 #starting val for 'width' in textwrap()
     PIXEL_MAX =         280 #arbitrary value i found by trial/error
@@ -61,6 +61,10 @@ def generateImage(userinput):
             good = False #keep going
     text = finalMsg.strip()
 
+    # Combine Post and Date
+    text = text+'\n'+'\n'+ date
+    # print(text)
+
     #center by amt of lines
     lines = len(text.split('\n'))
 
@@ -77,6 +81,10 @@ def generateImage(userinput):
         #     image.putpixel((HEIGHT//2+i, WIDTH//2), (255, 255, 255))
         # for i in range(-50, 50):
         #     image.putpixel((HEIGHT//2, WIDTH//2+i), (255, 255, 255))
-
-    image.show()
-    # img.save("missed_connection.jpg")
+    
+    SavePath = 'C:/Users/green/Desktop/MissedConnections/'
+    FileName = (str(title) + '.png').replace(':','')
+    AbsolutePath = SavePath + FileName
+    
+    image.save(AbsolutePath)
+    # image.show()

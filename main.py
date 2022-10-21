@@ -26,7 +26,7 @@ print(posttime_datetime_object)
 
 while posttime_datetime_object >= LastImageTime:
     # Generate Image
-    generateImage(post)
+    generateImage(post,posttime,posttime_datetime_object)
     postrow += 1
     # Post and Time
     post = worksheet.get('A{}'.format(postrow)).first()

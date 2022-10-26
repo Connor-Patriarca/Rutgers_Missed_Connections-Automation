@@ -1,6 +1,7 @@
 import gspread
 from datetime import datetime
 from GenerateImage import generateImage
+import time
 
 # Prompt Script to start looking from when?
 dateprompt = input(str("\nWhat date/time should I start working from?\nFormat is 'mm/dd/yyyy hh:mm:ss' : "))
@@ -25,6 +26,7 @@ posttime_datetime_object = datetime.strptime(posttime, '%m/%d/%Y %H:%M:%S')
 print(posttime_datetime_object)
 
 while posttime_datetime_object >= LastImageTime:
+    print('anothuh one...')
     # Generate Image
     generateImage(post,posttime,posttime_datetime_object)
     postrow += 1
@@ -33,6 +35,7 @@ while posttime_datetime_object >= LastImageTime:
     posttime = worksheet.get('B{}'.format(postrow)).first()
     # Translating Date
     posttime_datetime_object = datetime.strptime(posttime, '%m/%d/%Y %H:%M:%S')
+    time.sleep(2)
 
 # For when script is put on timer    
 posttime_datetime_object = LastImageTime

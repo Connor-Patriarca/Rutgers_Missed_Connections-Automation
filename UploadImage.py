@@ -8,17 +8,16 @@ SCOPES = ['https://www.googleapis.com/auth/drive']
 
 service = Create_Service(CLIENT_SECRET_FILE, API_NAME, API_VERSION, SCOPES)
 
-folder_id = '1F5WX2BonUA0ralcOGpJCJZjrL4DFytJZ'
-file_names = ['mike1.jpg','mike2.jpg']
-mime_types = ['image/jpeg','image/jpeg']
+def UploadImage(image_path,date):
+    folder_id = '1b1KE_71vPNoO02-JGsTH0uyEHEdVEW5N'
+    mime_type = 'image/jpeg'
 
-for file_name, mime_type in zip(file_names,mime_types):
     file_metadata = {
-        'name': file_name,
+        'name': date,
         'parents': [folder_id]
     }
 
-    media = MediaFileUpload('Test Images/{0}'.format(file_name), mimetype=mime_type)
+    media = MediaFileUpload(image_path, mimetype=mime_type)
 
     service.files().create(
         body=file_metadata,

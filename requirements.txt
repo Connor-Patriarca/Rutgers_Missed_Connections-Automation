@@ -1,4 +1,7 @@
+fontTools==4.38.0
+google_api_python_client==2.66.0
+google_auth_oauthlib==0.5.3
+gspread==5.7.0
+Pillow==9.3.0
 pilmoji==2.0.2
-gspread==5.5.0
-Pillow==9.2.0
-fonttools==4.37.4
+protobuf==4.21.9

@@ -2,7 +2,7 @@ from PIL import ImageFont, Image
 from pilmoji import Pilmoji
 import textwrap
 from fontTools.ttLib import TTFont
-from UploadImage import UploadImage
+# from UploadImage import UploadImage
 
 def generateImage(userinput,date,title):
     # Calculating Text Size
@@ -83,12 +83,12 @@ def generateImage(userinput,date,title):
         # for i in range(-50, 50):
         #     image.putpixel((HEIGHT//2, WIDTH//2+i), (255, 255, 255))
     
-    SavePath = 'C:/Users/green/Desktop/MissedConnections/'
+    SavePath = 'Image_Cache/'
     FileName = (str(title) + '.png').replace(':','')
     AbsolutePath = SavePath + FileName
     
     image.save(AbsolutePath)
 
-    UploadImage(AbsolutePath,date)
+    # UploadImage(AbsolutePath,date)
 
     # image.show()

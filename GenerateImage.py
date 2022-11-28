@@ -89,6 +89,10 @@ def generateImage(userinput,date,title):
     
     image.save(AbsolutePath)
 
-    UploadImage(AbsolutePath,date)
+    try:
+        UploadImage(AbsolutePath,date)
+    except:
+        print("Google Drive Upload Failed")
+        pass
 
     # image.show()

@@ -1,6 +1,5 @@
-google-auth>=2.14.1
 fontTools==4.38.0
-google_api_python_client>=2.65.0
+google_api_python_client==2.66.0
 google_auth_oauthlib==0.5.3
 gspread==5.7.0
 Pillow==9.3.0

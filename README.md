@@ -1,4 +1,4 @@
-# Missed_Connections
+# Rutgers Missed Connections Automation
 
 Goal:
 For every new entry at (Insert Link To Missed Connections Google Sheet Here)

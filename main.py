@@ -3,12 +3,6 @@ from datetime import datetime
 from GenerateImage import generateImage
 import time
 
-# # Prompt script to start looking from when?
-# dateprompt = input(str("\nWhat date/time should I start working from?\nFormat is 'mm/dd/yyyy hh:mm:ss' : "))
-
-# # Create variables with that date
-# LastImageTime = datetime.strptime(dateprompt, '%m/%d/%Y %H:%M:%S')
-
 # Pull time of most recent post image generated
 f = open("value.txt", 'r')
 
@@ -35,8 +29,8 @@ with open('value.txt', 'w') as f:
     f.write(most_recent_date)
 
 # Script chooses to continue or not based on the time of the last generated post
-while posttime_datetime_object >= LastImageTime:
-    print('anothuh one...')
+while posttime_datetime_object > LastImageTime:
+    print('generating image | dated', posttime_datetime_object)
     # Generate Image
     generateImage(post,posttime,posttime_datetime_object)
     postrow += 1

@@ -92,4 +92,4 @@ def delete_mistake_folder(folder_name):
         if page_token is None:
             break    
 
-delete_mistake_folder("12-21-2022")
+# delete_mistake_folder("12-21-2022")

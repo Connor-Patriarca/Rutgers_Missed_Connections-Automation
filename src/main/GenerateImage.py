@@ -2,7 +2,7 @@ from PIL import ImageFont, Image
 from pilmoji import Pilmoji
 import textwrap
 from fontTools.ttLib import TTFont
-from UploadImage import UploadImage
+from src.main.UploadImage import UploadImage
 
 def generateImage(userinput,date,title):
     # Calculating Text Size

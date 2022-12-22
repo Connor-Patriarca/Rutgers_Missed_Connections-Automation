@@ -25,5 +25,3 @@ def UploadImage(image_path,date):
         media_body=media,
         fields='id'
     ).execute()
-
-print ("test2")

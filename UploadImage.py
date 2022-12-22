@@ -26,4 +26,4 @@ def UploadImage(image_path,date):
         fields='id'
     ).execute()
 
-print ("test")
+print ("test2")

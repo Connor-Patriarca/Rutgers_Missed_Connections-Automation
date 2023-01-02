@@ -13,11 +13,8 @@ LastImageTime = datetime.strptime(most_recent_date, '%m/%d/%Y %H:%M:%S')
 
 # Pull entries from Google Sheet
 gc = gspread.service_account('service_account.json')
-try:
-    sh = gc.open_by_url('https://docs.google.com/spreadsheets/d/1GAGsJhb3pH9WLwLs7Kj9F_h0x0lweRL30qURPBguGfw/edit?usp=sharing')
-except:
-    print ("My pickle has been tickled and shall be removed...")
-    os.remove("demofile.txt")
+sh = gc.open_by_url('https://docs.google.com/spreadsheets/d/1GAGsJhb3pH9WLwLs7Kj9F_h0x0lweRL30qURPBguGfw/edit?usp=sharing')
+
 # google.auth.exceptions.TransportError: HTTPSConnectionPool(host='oauth2.googleapis.com', port=443): Max retries exceeded with url: /token (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x000001C4FEB76950>: Failed to establish a new connection: [Errno 11001] getaddrinfo failed'))
 
 worksheet = sh.sheet1

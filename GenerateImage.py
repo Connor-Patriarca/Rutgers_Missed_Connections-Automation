@@ -89,10 +89,14 @@ def generateImage(userinput,date,title):
     
     image.save(AbsolutePath)
 
+    print("Image successfully created locally with date=" + date + ", uploading to google drive...")
+
     try:
         UploadImage(AbsolutePath,date)
-    except:
-        print("Google Drive Upload Failed")
+    except Exception as e: 
+        print("Google Drive Upload Failed due to: ")
+        print(e)
         pass
+    # TODO add some type of exception handling when this fails to keep track of this item for reprocessing
 
     # image.show()

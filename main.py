@@ -4,11 +4,12 @@ from GenerateImage import generateImage
 import time
 import os
 
-# Pull time of most recent post image generated
-f = open("value.txt", 'r')
-
-# Create variables with that date
+# Pull time of most recent post image generated / create file for its storage
+f = open("value.txt", 'w+')
+# Create variables with that date / request input
 most_recent_date = f. readline()
+if most_recent_date == '':
+    most_recent_date = input(str("\nPlease enter the date you wish to stop generating at.?\nThe format is 'mm/dd/yyyy hh:mm:ss': "))
 LastImageTime = datetime.strptime(most_recent_date, '%m/%d/%Y %H:%M:%S')
 
 # Pull entries from Google Sheet

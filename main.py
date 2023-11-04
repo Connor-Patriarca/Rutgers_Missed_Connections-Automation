@@ -1,48 +1,95 @@
 import gspread
-from datetime import datetime
-from GenerateImage import generateImage
 import time
-import os
+from html2image import Html2Image
 
-# Pull time of most recent post image generated / create file for its storage
-f = open("value.txt", 'w+')
-# Create variables with that date / request input
-most_recent_date = f. readline()
-if most_recent_date == '':
-    most_recent_date = input(str("\nPlease enter the date you wish to stop generating at.?\nThe format is 'mm/dd/yyyy hh:mm:ss': "))
-LastImageTime = datetime.strptime(most_recent_date, '%m/%d/%Y %H:%M:%S')
 
-# Pull entries from Google Sheet
-gc = gspread.service_account('service_account.json')
-sh = gc.open_by_url('https://docs.google.com/spreadsheets/d/1GAGsJhb3pH9WLwLs7Kj9F_h0x0lweRL30qURPBguGfw/edit?usp=sharing')
+# Image Generation
+def generateImage(text, time):
+    # Generate image parameters
+    hti = Html2Image(browser="edge")
+    hti.size = (1000, 1000)
+    hti.output_path = "Image_Cache"
 
-# google.auth.exceptions.TransportError: HTTPSConnectionPool(host='oauth2.googleapis.com', port=443): Max retries exceeded with url: /token (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x000001C4FEB76950>: Failed to establish a new connection: [Errno 11001] getaddrinfo failed'))
+    # Name File and Saving
+    file_name = "{}.png".format(time).replace(":", "").replace("/", "-")
 
+    # font = ImageFont.truetype("OriginalFont.ttf", 40)
+
+    hti.screenshot(
+        html_str="<p class='post'>" + text + "<br> <br>" + time + "</p>",
+        css_str=[
+            "body {background: black; color: white; font-size: 40px; display: flex; align-items: center; justify-content: center;}",
+            ".post {width: 90%; font-family: Helvetica; font-weight: light; line-height: 1.5;}",
+        ],
+        save_as=file_name,
+    )
+
+
+# Open file with row # of most recent image generated
+try:
+    f = open("value.txt", "r+")
+# If file does not exist create then open
+except:
+    open("value.txt", "w")
+    f = open("value.txt", "r+")
+    print("value.txt created")
+
+# Read the most recently read row / request input
+try:
+    postrow = int(f.readline())
+# if postrow == None or postrow == "":
+except:
+    postrow = input(
+        str(
+            "\nPlease enter the row you wish to start generating from (generating from the top down): "
+        )
+    )
+    postrow = int(postrow)
+
+# As this account / Please Reach out for the service account file
+gc = gspread.service_account(filename="mcnexus-image_generation-service_account.json")
+# Open this sheet
+sh = gc.open_by_url(
+    "https://docs.google.com/spreadsheets/d/1gENw0k_10SGi7nOlBgodP19Zd2aFtfJvvhbkNv7UxVM/edit?usp=sharing"
+)
+
+# Make sheet easier to reference
 worksheet = sh.sheet1
 
-# Row to start pulling data from
-postrow = 2
 # Post and Time
-post = worksheet.get('A{}'.format(postrow)).first()
-posttime = worksheet.get('B{}'.format(postrow)).first()
-# Translating Date
-posttime_datetime_object = datetime.strptime(posttime, '%m/%d/%Y %H:%M:%S')
+post_time = worksheet.get("A{}".format(postrow)).first()
+post_text = worksheet.get("B{}".format(postrow)).first()
 
-# Script chooses to continue or not based on the time of the last generated post
-while posttime_datetime_object > LastImageTime:
+# Notify user of starting row date
+if post_time == None:
+    print("No new posts to generate.")
+    exit()
+else:
+    print("Starting with Missed Connection", post_time)
+
+
+# Choose to continue or not based on the last generated row}
+while post_time != None:
+    # Print Row
+    print(post_time, "Generating...")
     # Generate Image
-    generateImage(post,posttime,posttime_datetime_object)
+    generateImage(post_text, post_time)
+    # Onto the next row
     postrow += 1
-    # Post and Time
-    post = worksheet.get('A{}'.format(postrow)).first()
-    posttime = worksheet.get('B{}'.format(postrow)).first()
-    # Translating Date
-    posttime_datetime_object = datetime.strptime(posttime, '%m/%d/%Y %H:%M:%S')
+    # Record most recent post time
+    most_recent_time = post_time
+    # Update Post and Time
+    post_time = worksheet.get("A{}".format(postrow)).first()
+    post_text = worksheet.get("B{}".format(postrow)).first()
+    # Space out requests, Google doesn't like us making too many requests at once
     time.sleep(2)
-
-# Record most recent post time
-most_recent_date = worksheet.get('B2'.format(postrow)).first()
-with open('value.txt', 'w') as f:
-    f.write(most_recent_date)
-
-print('Posts generated up to',most_recent_date)
+else:
+    # Record most recent post time
+    with open("value.txt", "w") as f:
+        f.write(str(postrow))
+    most_recent_postrow = postrow - 1
+    print(
+        "\nPosts generated up to {} on row {}".format(
+            most_recent_time, most_recent_postrow
+        )
+    )

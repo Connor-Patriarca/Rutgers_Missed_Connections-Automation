@@ -1,14 +1,13 @@
 # Rutgers Missed Connections Automation
 
 Goal:
-For every new entry at (Insert Link To Missed Connections Google Sheet Here)
-this will generate an image in the style of this Instagram page: https://www.instagram.com/rutgers.missedconnections/?hl=en
+For every new entry to a missed connections page, this program will generate an image in the desired style: 
+Example of a page currently using this: https://www.instagram.com/rutgers.missedconnections/
 
 Process:
-1. At each new submission to the Sheet, pull the entry+time posted and generate an image.
-2. Generate Image
-3. Send each image to a shared Google Drive folder, each photo name being the date/time the post was made.
-   Each picture in the folder will be placed in folders marked by each day, so it is easier to keep track of them.
+1. The script will search through the provided dataset, starting with the row indicated by the user, and  iterate through each entry until it reaches the end.
+2. Each row's fields will be used to generate an image which will then be saved to the device running the script. Each photo name is the date/time the post was made.
+3. Once the end it reached, the program will save the last row an image was generated from, and will start from that row the next time it is run, continuing where it left off.
 
 # Running
 1. `pip install -r requirements.txt`

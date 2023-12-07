@@ -1,19 +1,43 @@
 import gspread
 import time
 from html2image import Html2Image
+import os
+import sys
 
+# Gets absolute path to resource
+def resource_path(relative_path):
+    """ Get absolute path to resource, works for dev and for PyInstaller """
+    base_path = getattr(sys, '_MEIPASS', os.path.dirname(os.path.abspath(__file__)))
+    return os.path.join(base_path, relative_path)
+
+# determine if application is a script file or frozen exe
+if getattr(sys, 'frozen', False):
+    application_path = os.path.dirname(sys.executable)
+    # Paths to files/folders being updated/created
+    Image_Cache = os.path.join(application_path + "/Image_Cache")
+    value = os.path.join(application_path + "/value.txt")
+elif __file__:
+    application_path = os.path.dirname('main.py')
+    # Paths to files/folders being updated/created
+    Image_Cache = os.path.join(application_path + "Image_Cache")
+    value = os.path.join(application_path + "value.txt")
+
+# Path to service account    
+service_account = resource_path("mcnexus-image_generation-service_account.json")
+
+# Making sure Image_Cache is present
+if not os.path.exists(Image_Cache):
+    os.makedirs(Image_Cache)
 
 # Image Generation
 def generateImage(text, time):
     # Generate image parameters
-    hti = Html2Image(browser="edge")
+    hti = Html2Image(browser="chrome")
     hti.size = (1000, 1000)
-    hti.output_path = "Image_Cache"
+    hti.output_path = Image_Cache
 
     # Name File and Saving
     file_name = "{}.png".format(time).replace(":", "").replace("/", "-")
-
-    # font = ImageFont.truetype("OriginalFont.ttf", 40)
 
     hti.screenshot(
         html_str="<p class='post'>" + text + "<br> <br>" + time + "</p>",
@@ -27,11 +51,11 @@ def generateImage(text, time):
 
 # Open file with row # of most recent image generated
 try:
-    f = open("value.txt", "r+")
+    f = open(value, "r+")
 # If file does not exist create then open
 except:
-    open("value.txt", "w")
-    f = open("value.txt", "r+")
+    open(value, "w")
+    f = open(value, "r+")
     print("value.txt created")
 
 # Read the most recently read row / request input
@@ -47,7 +71,7 @@ except:
     postrow = int(postrow)
 
 # As this account / Please Reach out for the service account file
-gc = gspread.service_account(filename="mcnexus-image_generation-service_account.json")
+gc = gspread.service_account(filename=service_account)
 # Open this sheet
 sh = gc.open_by_url(
     "https://docs.google.com/spreadsheets/d/1gENw0k_10SGi7nOlBgodP19Zd2aFtfJvvhbkNv7UxVM/edit?usp=sharing"
@@ -85,7 +109,7 @@ while post_time != None:
     time.sleep(2)
 else:
     # Record most recent post time
-    with open("value.txt", "w") as f:
+    with open(value, "w") as f:
         f.write(str(postrow))
     most_recent_postrow = postrow - 1
     print(
